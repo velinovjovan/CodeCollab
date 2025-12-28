@@ -1,7 +1,6 @@
 import { signOutAction } from "@/app/actions";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import React from "react";
 
 const ButtonsSign = async () => {
   const supabase = await createClient();

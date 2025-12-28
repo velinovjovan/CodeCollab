@@ -1,7 +1,5 @@
 import { Geist } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer";
-import Nav from "@/components/Nav";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -29,15 +27,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/codecollab.png" sizes="any" />
       </head>
-      <body className="bg-background text-foreground">
-        <main className="min-h-screen flex flex-col items-center">
-          <div className="flex-1 w-full flex flex-col items-center bg-gradient-to-t from-blue-200 to-cyan-800">
-            <Nav />
-            {children}
-            <Footer />
-          </div>
-        </main>
-      </body>
+      <body className="bg-background text-foreground">{children}</body>
     </html>
   );
 }

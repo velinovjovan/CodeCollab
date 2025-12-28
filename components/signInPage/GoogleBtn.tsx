@@ -5,7 +5,7 @@ const GoogleBtn = () => {
   return (
     <button
       onClick={signInWithOAuthGoogle}
-      className="inline-flex justify-center items-center mb-5 gap-8 w-full py-3 bg-white border border-gray-300 rounded-lg shadow-md px-6 font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+      className="group relative inline-flex justify-center items-center gap-3 w-full py-3.5 bg-white/95 hover:bg-white border border-gray-200 hover:border-gray-300 rounded-xl shadow-lg hover:shadow-xl px-6 font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400/50 transition-all duration-300 hover:scale-[1.02]"
     >
       <svg
         className="h-8 w-8"
@@ -59,7 +59,7 @@ const GoogleBtn = () => {
           </g>{" "}
         </g>{" "}
       </svg>
-      <span className="text-lg">Sign in with Google</span>
+      <span className="text-base">Continue with Google</span>
     </button>
   );
 };

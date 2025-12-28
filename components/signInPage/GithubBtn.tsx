@@ -5,7 +5,7 @@ const GithubBtn = () => {
   return (
     <button
       onClick={signInWithOAuthGithub}
-      className="text-white bg-[#24292F] mb-5 w-full focus:ring-4 justify-center gap-8 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-lg px-6 py-3 text-center inline-flex items-center focus:ring-gray-500 hover:bg-[#050708]/30"
+      className="group relative text-white bg-[#24292F] hover:bg-[#1a1e23] w-full focus:ring-2 justify-center gap-3 focus:outline-none focus:ring-gray-400/50 font-semibold rounded-xl text-base px-6 py-3.5 text-center inline-flex items-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
     >
       <svg
         className="w-8 h-8"
@@ -20,7 +20,7 @@ const GithubBtn = () => {
           clipRule="evenodd"
         />
       </svg>
-      Sign in with Github
+      Continue with Github
     </button>
   );
 };
