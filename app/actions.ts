@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  console.log("jej");
   return redirect("/sign-in");
 };
 
@@ -15,7 +14,7 @@ export const signInWithOAuthGithub = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "github",
     options: {
-      redirectTo: `https://codecollab-jowan.vercel.app/auth/callback`,
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/auth/callback`,
     },
   });
 
@@ -32,7 +31,7 @@ export const signInWithOAuthDiscord = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "discord",
     options: {
-      redirectTo: `https://codecollab-jowan.vercel.app/auth/callback`,
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/auth/callback`,
     },
   });
 
@@ -49,7 +48,7 @@ export const signInWithOAuthGoogle = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `https://codecollab-jowan.vercel.app/auth/callback`,
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/auth/callback`,
     },
   });
 
