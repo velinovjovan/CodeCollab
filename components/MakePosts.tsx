@@ -5,6 +5,7 @@ import React, { useState } from "react";
 const MakePosts = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submitPost = async (e: any) => {
     e.preventDefault();
@@ -13,47 +14,62 @@ const MakePosts = () => {
 
     if (!title || !content) return;
 
+    setIsSubmitting(true);
     const { error } = await supabase.from("posts").insert({ title, content });
 
-    setTitle("");
-    setContent("");
+    if (!error) {
+      setTitle("");
+      setContent("");
+    }
+    setIsSubmitting(false);
   };
+
   return (
-    <div>
-      <p className="text-xl mb-3 font-bold mt-5">Make a post: </p>
-      <form
-        onSubmit={submitPost}
-        className="w-80 py-10 gap-5 flex flex-col justify-center items-center bg-gradient-to-b from-slate-900 to-slate-800"
-      >
+    <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 hover:border-slate-600 transition-all shadow-xl">
+      <p className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
+        Share Your Project
+      </p>
+      <form onSubmit={submitPost} className="space-y-4">
         <div>
-          <p className="text-cyan-300 font-mono">Title:</p>
-          <textarea
-            className="rounded-lg mt-2 h-7 px-2 font-mono resize-none"
-            placeholder="A Project"
+          <label className="block text-sm font-medium text-white mb-2">
+            Title
+            <span className="text-xs text-gray-400 ml-1">
+              ({title.length}/50)
+            </span>
+          </label>
+          <input
+            type="text"
+            className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+            placeholder="My Amazing Project"
             maxLength={50}
             value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          ></textarea>
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
+
         <div>
-          <p className="text-cyan-300 font-mono">Content:</p>
+          <label className="block text-sm font-medium text-white mb-2">
+            Description
+            <span className="text-xs text-gray-400 ml-1">
+              ({content.length}/1700)
+            </span>
+          </label>
           <textarea
-            className="rounded-lg mt-2 h-20 px-2 font-mono resize-none"
-            placeholder="My project is..."
+            className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all resize-none"
+            placeholder="Tell us about your project..."
             maxLength={1700}
+            rows={4}
             value={content}
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
-          ></textarea>
+            onChange={(e) => setContent(e.target.value)}
+          />
         </div>
+
         <button
           type="submit"
-          className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-cyan-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-cyan-800"
+          disabled={!title || !content || isSubmitting}
+          className="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-500 hover:to-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition-all shadow-lg hover:shadow-cyan-500/50"
         >
-          Publish post
+          {isSubmitting ? "Publishing..." : "Publish Project"}
         </button>
       </form>
     </div>

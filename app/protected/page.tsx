@@ -20,18 +20,40 @@ export default async function ProtectedPage() {
   }
 
   return (
-    // <div className="flex-1 w-full flex flex-col gap-12 md:px-24 px-10 py-24">
-    //   <div className="w-full flex gap-52 lg:flex-nowrap flex-wrap">
-    //     <div>
-    //       <Profile id={user.id} />
-    //       <MakePosts />
-    //     </div>
-    //     <LiveChat user={user} />
-    //   </div>
-    //   <div>
-    //     <Posts />
-    //   </div>
-    // </div>
-    <ButtonSignOut />
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
+      {/* Profile Floating Widget */}
+      <Profile id={user.id} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header Section */}
+        <div className="mb-12">
+          <div>
+            <h1 className="text-4xl font-bold text-white mb-2">Welcome back</h1>
+            <p className="text-gray-400">
+              Connect, share, and collaborate with the community
+            </p>
+          </div>
+        </div>
+
+        {/* Main Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          {/* Left Sidebar - Create Post */}
+          <div className="lg:col-span-1 space-y-6">
+            <MakePosts />
+          </div>
+
+          {/* Center & Right - Chat and Posts */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Live Chat */}
+            <LiveChat user={user} />
+          </div>
+        </div>
+
+        {/* Posts Section - Full Width */}
+        <div className="mt-12">
+          <Posts />
+        </div>
+      </div>
+    </div>
   );
 }
