@@ -37,7 +37,7 @@ const Message = ({ user_id, text }: { user_id: string; text: string }) => {
       </div>
       <div className="flex-1">
         <p className="text-sm font-semibold text-cyan-300 mb-1">{name}</p>
-        <div className="bg-slate-700/50 rounded-2xl px-4 py-2 border border-slate-600 max-w-lg inline-block">
+        <div className="bg-slate-700/50 rounded-2xl px-4 py-2 border border-slate-600 max-w-sm inline-block">
           <p className="text-gray-100 break-words">{text}</p>
         </div>
       </div>

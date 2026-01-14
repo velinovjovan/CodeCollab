@@ -31,7 +31,7 @@ const SelfMessage = ({ user, text }: { user: User; text: string }) => {
         <p className="text-sm font-semibold text-cyan-400 mb-1">
           {displayName}
         </p>
-        <div className="bg-gradient-to-r from-cyan-600 to-cyan-700 rounded-2xl px-4 py-2 border border-cyan-500/50 max-w-lg inline-block text-left">
+        <div className="bg-gradient-to-r from-cyan-600 to-cyan-700 rounded-2xl px-4 py-2 border border-cyan-500/50 max-w-sm inline-block text-left">
           <p className="text-white break-words">{text}</p>
         </div>
       </div>
