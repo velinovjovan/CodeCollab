@@ -1,11 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
-
-interface WhiteboardProps {
-  communityId: string;
-  userId: string;
-}
+import { WhiteboardProps } from "@/interfaces";
 
 const Whiteboard = ({ communityId, userId }: WhiteboardProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -18,7 +14,6 @@ const Whiteboard = ({ communityId, userId }: WhiteboardProps) => {
   useEffect(() => {
     loadWhiteboard();
 
-    // Subscribe to real-time updates
     const channel = supabase
       .channel(`whiteboard-${communityId}`)
       .on(
@@ -33,7 +28,7 @@ const Whiteboard = ({ communityId, userId }: WhiteboardProps) => {
           if (payload.new.updated_by !== userId) {
             loadWhiteboardData(payload.new.content);
           }
-        }
+        },
       )
       .subscribe();
 
@@ -162,18 +157,14 @@ const Whiteboard = ({ communityId, userId }: WhiteboardProps) => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Set canvas size (16:9 aspect ratio) - larger for big screens
     canvas.width = 1920;
     canvas.height = 1080;
-
-    // Fill with dark background
     ctx.fillStyle = "#1e293b";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }, []);
 
   return (
     <div className="flex flex-col h-full">
-      {/* Toolbar */}
       <div className="bg-slate-800/50 border-b border-slate-700 p-3 flex items-center gap-4 flex-wrap">
         <div className="flex items-center gap-2">
           <button
@@ -197,7 +188,6 @@ const Whiteboard = ({ communityId, userId }: WhiteboardProps) => {
             🧹 Eraser
           </button>
         </div>
-
         <div className="flex items-center gap-2">
           <label className="text-xs text-gray-400">Color:</label>
           <div className="flex gap-1">
@@ -225,7 +215,6 @@ const Whiteboard = ({ communityId, userId }: WhiteboardProps) => {
             ))}
           </div>
         </div>
-
         <div className="flex items-center gap-2">
           <label className="text-xs text-gray-400">Size:</label>
           <input
@@ -238,7 +227,6 @@ const Whiteboard = ({ communityId, userId }: WhiteboardProps) => {
           />
           <span className="text-xs text-gray-400 w-6">{lineWidth}</span>
         </div>
-
         <button
           onClick={clearCanvas}
           className="ml-auto px-4 py-1.5 bg-red-600/80 text-white rounded-lg hover:bg-red-500 transition-all text-sm font-medium"
@@ -246,8 +234,6 @@ const Whiteboard = ({ communityId, userId }: WhiteboardProps) => {
           🗑️ Clear
         </button>
       </div>
-
-      {/* Canvas */}
       <div className="flex-1 bg-slate-900 p-4 overflow-auto flex items-center justify-center">
         <canvas
           ref={canvasRef}
@@ -259,7 +245,6 @@ const Whiteboard = ({ communityId, userId }: WhiteboardProps) => {
           style={{ maxWidth: "100%", height: "auto", display: "block" }}
         />
       </div>
-
       <div className="bg-slate-800/50 border-t border-slate-700 p-2 text-center">
         <p className="text-xs text-gray-500">
           Draw collaboratively • Auto-saves after each stroke

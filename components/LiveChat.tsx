@@ -5,25 +5,17 @@ import { useEffect, useRef, useState } from "react";
 import Message from "@/components/Message";
 import { User } from "@supabase/supabase-js";
 import SelfMessage from "./SelfMessage";
-
-// Define the types for message data
-interface Message {
-  id: string;
-  text: string;
-  created_at: string;
-  send_by: string;
-}
+import { Message as MessageType } from "@/interfaces";
 
 const supabase = createClient();
 
 const LiveChat = ({ user }: { user: User }) => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<MessageType[]>([]);
   const [newMessage, setNewMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
-  // Function to scroll to the bottom
   const scrollToBottom = () => {
     if (endOfMessagesRef.current) {
       endOfMessagesRef.current.scrollIntoView({
@@ -60,9 +52,9 @@ const LiveChat = ({ user }: { user: User }) => {
         (payload) => {
           setMessages((prevMessages) => [
             ...prevMessages,
-            payload.new as Message,
+            payload.new as MessageType,
           ]);
-        }
+        },
       )
       .subscribe();
 
@@ -91,18 +83,15 @@ const LiveChat = ({ user }: { user: User }) => {
 
   return (
     <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-700 shadow-xl overflow-hidden flex flex-col h-[600px]">
-      {/* Header */}
       <div className="bg-gradient-to-r from-cyan-600/20 to-blue-600/20 border-b border-slate-700 px-6 py-4">
         <div className="flex items-center gap-3">
           <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse"></div>
           <p className="text-sm font-semibold text-white uppercase tracking-wider">
-            Live Community Chat
+            Live Global Chat
           </p>
         </div>
         <p className="text-xs text-gray-400 mt-1">{messages.length} messages</p>
       </div>
-
-      {/* Messages Container */}
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full">
@@ -121,14 +110,12 @@ const LiveChat = ({ user }: { user: User }) => {
                   text={message.text}
                   key={message.id}
                 />
-              )
+              ),
             )}
             <div ref={endOfMessagesRef} />
           </>
         )}
       </div>
-
-      {/* Input Area */}
       <div className="border-t border-slate-700 bg-slate-900/50 p-4 backdrop-blur">
         <form className="flex items-center gap-3" onSubmit={handleSendMessage}>
           <input

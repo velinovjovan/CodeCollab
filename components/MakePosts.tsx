@@ -46,7 +46,6 @@ const MakePosts = () => {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-
         <div>
           <label className="block text-sm font-medium text-white mb-2">
             Description

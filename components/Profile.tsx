@@ -31,7 +31,6 @@ const Profile = (id: any) => {
 
   return (
     <div className="fixed left-4 bottom-4 z-50">
-      {/* Collapsed Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
@@ -49,8 +48,6 @@ const Profile = (id: any) => {
           <span>{name}</span>
         </button>
       )}
-
-      {/* Expanded Profile Card */}
       {isOpen && (
         <div className="animate-in slide-in-from-left duration-300 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 hover:border-slate-600 transition-all shadow-2xl w-72">
           <div className="flex justify-between items-start mb-4">
@@ -76,7 +73,6 @@ const Profile = (id: any) => {
               </svg>
             </button>
           </div>
-
           <div className="flex flex-col items-center">
             <div className="rounded-full overflow-hidden w-24 h-24 border-4 border-cyan-500 mb-4 shadow-lg">
               <Image
@@ -88,11 +84,9 @@ const Profile = (id: any) => {
                 priority
               />
             </div>
-
             <p className="text-xl font-bold text-white text-center mb-4">
               {name}
             </p>
-
             <div className="w-full pt-4 border-t border-slate-700">
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-slate-700/50 rounded-lg p-3">
@@ -107,8 +101,6 @@ const Profile = (id: any) => {
                 </div>
               </div>
             </div>
-
-            {/* Sign Out Button */}
             <button
               onClick={() => signOutAction()}
               className="w-full mt-6 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-semibold py-2 px-4 rounded-lg transition-all shadow-lg hover:shadow-red-500/50 flex items-center justify-center gap-2 group"

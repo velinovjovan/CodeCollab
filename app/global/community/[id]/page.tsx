@@ -18,7 +18,6 @@ export default async function CommunityPage({
     return redirect("/sign-in");
   }
 
-  // Check if user is a member of this community
   const { data: membership } = await supabase
     .from("community_members")
     .select("*")

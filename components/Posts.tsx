@@ -2,14 +2,7 @@
 import { createClient } from "@/utils/supabase/client";
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
-
-interface PostType {
-  id: number;
-  title: string;
-  content: string;
-  created_at: string;
-  made_by: string;
-}
+import { PostType } from "@/interfaces";
 
 const Posts = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -45,7 +38,7 @@ const Posts = () => {
         { event: "*", schema: "public", table: "posts" },
         (payload) => {
           setPosts((prevPosts) => [payload.new as PostType, ...prevPosts]);
-        }
+        },
       )
       .subscribe();
 

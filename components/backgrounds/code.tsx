@@ -1,19 +1,7 @@
 "use client";
 import { useRef, useEffect } from "react";
 import { CSSProperties } from "react";
-
-interface Letter {
-  char: string;
-  color: string;
-  targetColor: string;
-  colorProgress: number;
-}
-
-interface RGB {
-  r: number;
-  g: number;
-  b: number;
-}
+import { Letter, RGB } from "@/interfaces";
 
 const Code = ({
   glitchColors = ["#2b4539", "#61dca3", "#61b3dc"],
@@ -53,7 +41,7 @@ const Code = ({
       shorthandRegex,
       (_m: string, r: string, g: string, b: string) => {
         return r + r + g + g + b + b;
-      }
+      },
     );
 
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -168,7 +156,7 @@ const Code = ({
           letter.color = interpolateColor(
             startRgb,
             endRgb,
-            letter.colorProgress
+            letter.colorProgress,
           );
           needsRedraw = true;
         }

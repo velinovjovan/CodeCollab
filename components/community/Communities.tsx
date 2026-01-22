@@ -2,16 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
-
-interface Community {
-  id: string;
-  name: string;
-  description: string;
-  created_by: string;
-  created_at: string;
-  member_count?: number;
-  is_member?: boolean;
-}
+import { Community } from "@/interfaces";
 
 const Communities = ({ userId }: { userId: string }) => {
   const [communities, setCommunities] = useState<Community[]>([]);
@@ -25,7 +16,6 @@ const Communities = ({ userId }: { userId: string }) => {
   useEffect(() => {
     loadCommunities();
 
-    // Subscribe to changes
     const channel = supabase
       .channel("communities-changes")
       .on(
@@ -33,7 +23,7 @@ const Communities = ({ userId }: { userId: string }) => {
         { event: "*", schema: "public", table: "communities" },
         () => {
           loadCommunities();
-        }
+        },
       )
       .subscribe();
 
@@ -49,7 +39,7 @@ const Communities = ({ userId }: { userId: string }) => {
         `
         *,
         community_members!left(user_id)
-      `
+      `,
       )
       .order("created_at", { ascending: false });
 
@@ -77,7 +67,6 @@ const Communities = ({ userId }: { userId: string }) => {
       .single();
 
     if (!error && data) {
-      // Auto-join creator as member
       await supabase.from("community_members").insert({
         community_id: data.id,
         user_id: userId,
@@ -133,8 +122,6 @@ const Communities = ({ userId }: { userId: string }) => {
           + Create
         </button>
       </div>
-
-      {/* Create Community Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 backdrop-blur-sm">
           <div className="bg-slate-800 rounded-2xl p-6 max-w-md w-full mx-4 border border-slate-700 shadow-2xl">
@@ -189,8 +176,6 @@ const Communities = ({ userId }: { userId: string }) => {
           </div>
         </div>
       )}
-
-      {/* Communities List */}
       <div className="flex-1 overflow-y-auto p-6 space-y-3">
         {communities.length === 0 ? (
           <div className="text-center py-8 text-gray-400">
